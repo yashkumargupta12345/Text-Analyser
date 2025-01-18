@@ -26,7 +26,7 @@ export default function TextForm(props) {
     props.showAlert("Copied to ClipBoard", "success");
   }
 
-
+const Color = props.mode === 'dark'? 'light': 'dark';
 const [text, setText]= useState("");
   return (
     <>
@@ -37,15 +37,16 @@ const [text, setText]= useState("");
         </div>
         <button className="btn btn-primary mt-4 ms-5" onClick={handleUpClick}>Convert to uppercase</button>
         <button className="btn btn-primary mt-4 mx-5" onClick={handleLoClick}>Convert to Lowercase</button>
-        <button type="button" onClick={toggleCopyText} class="btn btn-primary mt-4 mx-2">Copy Text to Clipboard</button>
+        <button type="button" onClick={toggleCopyText} className="btn btn-primary mt-4 mx-2">Copy Text to Clipboard</button>
 
       </div>
-      <h2 className="mx-5 my-3 text-light"> Your Text Summary</h2>
-      <p className="mx-5 my-3 text-light">{text.split(" ").filter(word => word.trim() !== "").length} Words and {text.length} Characters{" "}</p>
-      <p className="mx-5 my-3 text-light">{0.008 * text.length} read</p>
-      <h3 className="mx-5 my-3 text-light">Preview</h3>
-      <p className="mx-5 my-3 text-light">{text.length > 0 ? text:"Enter Something to preview it Here!"}</p>
-        
+      <div className={`${props.mode==="dark"?'text-light':'text-dark'}`}>
+          <h2 className="mx-5 my-3"> Your Text Summary</h2>
+          <p className="mx-5 my-3">{text.split(/\s+/).filter(word => word.trim() !== "").length} Words and {text.length} Characters{" "}</p>
+          <p className="mx-5 my-3">{0.008 * text.length} read</p>
+          <h3 className="mx-5 my-3">Preview</h3>
+          <p className="mx-5 my-3">{text.length > 0 ? text:"Nothing to Preview!"}</p>
+      </div>
 
     </>
   );
